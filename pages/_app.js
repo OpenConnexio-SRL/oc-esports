@@ -3,17 +3,17 @@ import {useRouter} from "next/router";
 import PublicLayoutMain from "@/components/LayoutPublic/Main/PublicLayoutMain";
 
 
-const PublicPages = [
-    "/",
-    "/teams"
+const PublicNavigation = [
+    { name: 'Dashboard', href: '/' },
+    { name: 'Teams', href: '/teams' },
 ]
 
 
 export default function App({ Component, pageProps }) {
   const routing = useRouter();
-  if(PublicPages.some(page => routing.asPath === page)){
+  if(PublicNavigation.some(page => routing.asPath === page.href)){
     return (
-      <PublicLayoutMain>
+      <PublicLayoutMain navigation={PublicNavigation}>
         <Component {...pageProps}/>
       </PublicLayoutMain>
     )

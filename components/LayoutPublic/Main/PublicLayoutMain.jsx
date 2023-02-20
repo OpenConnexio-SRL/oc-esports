@@ -2,10 +2,10 @@ import PublicLayoutTopbar from "@/components/LayoutPublic/TopBar/PublicLayoutTop
 import PublicLayoutContent from "@/components/LayoutPublic/Content/PublicLayoutContent";
 
 
-const PublicLayoutMain = ({children}) => {
+const PublicLayoutMain = ({navigation,children}) => {
     return (
         <>
-            <PublicLayoutTopbar />
+            <PublicLayoutTopbar navigation={navigation}/>
             <PublicLayoutContent content={children}/>
         </>
     )

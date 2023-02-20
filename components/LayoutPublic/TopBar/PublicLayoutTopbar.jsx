@@ -3,14 +3,9 @@ import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from "next/link";
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 
-const navigation = [
-    { name: 'Dashboard', href: '/', current: true },
-    { name: 'Teams', href: '/teams', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
-]
 
 
 function classNames(...classes) {
@@ -18,7 +13,8 @@ function classNames(...classes) {
 }
 
 
-const PublicLayoutTopbar = () => {
+const PublicLayoutTopbar = (props) => {
+    const routing = useRouter();
     return(
         <Disclosure as="header" className="bg-white shadow">
             {({ open }) => (
@@ -81,12 +77,12 @@ const PublicLayoutTopbar = () => {
 
                         {/* Main menu */}
                         <nav className="hidden lg:flex lg:space-x-8 lg:py-2" aria-label="Global">
-                            {navigation.map((item) => (
+                            {props.navigation.map((item) => (
                                 <a
                                     key={item.name}
                                     href={item.href}
                                     className={classNames(
-                                        item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
+                                        routing.asPath === item.href ? 'bg-gray-100 text-gray-900' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
                                         'rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'
                                     )}
                                     aria-current={item.current ? 'page' : undefined}
@@ -100,13 +96,13 @@ const PublicLayoutTopbar = () => {
                     {/* Mobile */}
                     <Disclosure.Panel as="nav" className="lg:hidden" aria-label="Global">
                         <div className="space-y-1 px-2 pt-2 pb-3">
-                            {navigation.map((item) => (
+                            {props.navigation.map((item) => (
                                 <Disclosure.Button
                                     key={item.name}
                                     as="a"
                                     href={item.href}
                                     className={classNames(
-                                        item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
+                                        routing.asPath === item.href ? 'bg-gray-100 text-gray-900' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
                                         'block rounded-md py-2 px-3 text-base font-medium'
                                     )}
                                     aria-current={item.current ? 'page' : undefined}

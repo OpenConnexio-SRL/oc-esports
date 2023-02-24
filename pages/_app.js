@@ -1,11 +1,17 @@
 import '@/styles/globals.css'
 import {useRouter} from "next/router";
-import PublicLayoutMain from "@/components/LayoutPublic/Main/PublicLayoutMain";
+import MainPublic from "@/components/LayoutPublic/MainPublic/MainPublic";
+import MainPrivate from "@/components/LayoutPrivate/MainPrivate/MainPrivate";
 
 
 const PublicNavigation = [
-    { name: 'Dashboard', href: '/' },
+    { name: 'Home', href: '/' },
     { name: 'Teams', href: '/teams' },
+]
+
+const PrivateNavigation = [
+    { name: 'Dashboard',href:'/private'},
+    { name: 'Profile', href: '/private/profile'}
 ]
 
 
@@ -13,10 +19,16 @@ export default function App({ Component, pageProps }) {
   const routing = useRouter();
   if(PublicNavigation.some(page => routing.asPath === page.href)){
     return (
-      <PublicLayoutMain navigation={PublicNavigation}>
+      <MainPublic navigation={PublicNavigation}>
         <Component {...pageProps}/>
-      </PublicLayoutMain>
+      </MainPublic>
     )
+  }else if(PrivateNavigation.some(page => routing.asPath === page.href)){
+      return (
+          <MainPrivate>
+              <Component {...pageProps}/>
+          </MainPrivate>
+      )
   }else{
     return <Component {...pageProps} />
   }
